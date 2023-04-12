@@ -1,4 +1,4 @@
-package com.sqa.g06.n03.WaterBilling.entity;
+package com.sqa.g06.n03.WaterBilling.config;
 
 import jakarta.persistence.*;
 
@@ -86,5 +86,18 @@ public class Config {
 
     public void setLevel4(double level4) {
         this.level4 = level4;
+    }
+
+    @Override
+    public String toString() {
+        return "Config{" +
+                "id=" + id +
+                ", environmentRate=" + environmentRate +
+                ", taxRate=" + taxRate +
+                ", level1=" + level1 +
+                ", level2=" + level2 +
+                ", level3=" + level3 +
+                ", level4=" + level4 +
+                '}';
     }
 }

@@ -87,4 +87,5 @@ public class Config {
     public void setLevel4(double level4) {
         this.level4 = level4;
     }
+
 }

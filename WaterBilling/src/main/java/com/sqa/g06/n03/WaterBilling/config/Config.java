@@ -1,4 +1,4 @@
-package com.sqa.g06.n03.WaterBilling.entity;
+package com.sqa.g06.n03.WaterBilling.config;
 
 import jakarta.persistence.*;
 

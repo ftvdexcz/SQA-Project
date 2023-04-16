@@ -1,10 +1,7 @@
 package com.sqa.g06.n03.WaterBilling.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
-import java.util.List;
 
 @Entity
 @Table(name = "role")
@@ -16,10 +13,6 @@ public class Role {
 
     @Column(name = "name", unique = true)
     private String name;
-
-//    @OneToMany(mappedBy = "role")
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-//    private List<User> user;
 
     public Role() {
     }
@@ -49,11 +42,11 @@ public class Role {
         this.name = name;
     }
 
-//    public List<User> getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(List<User> user) {
-//        this.user = user;
-//    }
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

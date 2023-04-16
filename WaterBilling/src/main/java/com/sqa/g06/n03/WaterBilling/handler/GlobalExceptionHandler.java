@@ -1,11 +1,10 @@
-package com.sqa.g06.n03.WaterBilling.error;
+package com.sqa.g06.n03.WaterBilling.handler;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Objects;
 
@@ -19,14 +18,13 @@ public class GlobalExceptionHandler  {
     }
 
 
-
     @ExceptionHandler(DataIntegrityViolationException.class)
     @ResponseBody
     public ResponseEntity<ResponseError> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
         String errorMessage = Objects.requireNonNull(ex.getRootCause()).getMessage();
         // Tìm kiếm thông tin lỗi vi phạm ràng buộc unique
         if (errorMessage.contains("Duplicate entry")) {
-            return ResponseEntity.status(400).body(new ResponseError("Failed!", 400, "Username already existed!"));
+            return ResponseEntity.status(400).body(new ResponseError("Failed!", 400, "Existed!"));
         }
         // Các thông tin lỗi khác
         else {

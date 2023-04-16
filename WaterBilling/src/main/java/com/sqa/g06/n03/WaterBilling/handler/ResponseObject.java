@@ -1,4 +1,4 @@
-package com.sqa.g06.n03.WaterBilling.util.model;
+package com.sqa.g06.n03.WaterBilling.handler;
 
 public class ResponseObject {
     private String status;

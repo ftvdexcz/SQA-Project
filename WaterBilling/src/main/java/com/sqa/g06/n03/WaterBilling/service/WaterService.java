@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface WaterService {
+
     public BillDTO createBill(CreateBillDTO billDTO);
     Page<BillDTO> findBillsByClientIdAndStatus(String clientId, int status, Pageable pageable);
-
 }

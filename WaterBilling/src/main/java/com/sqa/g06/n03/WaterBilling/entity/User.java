@@ -3,6 +3,8 @@ package com.sqa.g06.n03.WaterBilling.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
@@ -31,17 +33,12 @@ public class User {
     private String phone;
 
     @Column(name = "email")
+    @Email
     private String email;
 
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false) // foreign key role_id
     private Role role;
-
-    @JsonProperty("role_id")
-    private void unpackNested(Integer role_id) {
-        this.role = new Role();
-        role.setId(role_id);
-    }
 
     public User() {
     }
@@ -132,4 +129,17 @@ public class User {
         this.role = role;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }

@@ -65,3 +65,20 @@ insert into role(name) values('ROLE_CLIENT');
 insert into role(name) values('ROLE_ADMIN');
 
 insert into config(environment_rate, tax_rate, level1, level2, level3, level4) values(10, 5, 5.973, 7.052, 8.669, 15.929);
+
+alter table admin modify id varchar(12);
+alter table client modify id varchar(12);
+alter table bill modify client_id varchar(12);
+
+alter table bill add constraint uniqueBill unique(year, month, client_id);
+
+create table payment(
+                        id int auto_increment not null,
+                        payment_date date not null,
+                        total_amount double not null,
+                        bill_id int not null unique,
+                        CONSTRAINT FK_paymentBill FOREIGN KEY (bill_id) REFERENCES bill(id) ON DELETE CASCADE,
+                        CONSTRAINT PK_payment PRIMARY KEY (id)
+);
+
+insert into payment(payment_date, total_amount, bill_id) values('2023-04-16', 53.757, 7);

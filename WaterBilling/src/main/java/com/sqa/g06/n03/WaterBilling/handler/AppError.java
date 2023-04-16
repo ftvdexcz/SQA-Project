@@ -1,4 +1,4 @@
-package com.sqa.g06.n03.WaterBilling.error;
+package com.sqa.g06.n03.WaterBilling.handler;
 
 public class AppError extends RuntimeException{
     private int statusCode;

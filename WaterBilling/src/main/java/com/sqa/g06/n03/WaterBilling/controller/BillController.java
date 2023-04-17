@@ -39,9 +39,26 @@ public class BillController {
         );
     }
 
+    @GetMapping("")
+    public ResponseEntity<ResponseObject> findAllBills(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "-1") int status,
+            HttpServletRequest request
+    ){
+        if(!authService.checkRole(request, "ROLE_ADMIN"))
+            throw new AppError("Unauthorized!", 401);
+
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<BillDTO> bills = waterService.findAllBillsByStatus(status, pageable);
+        return ResponseEntity.status(200).body(new ResponseObject(
+                "Ok!", "Success!", bills
+        ));
+    }
+
     @GetMapping("/{clientId}")
     public ResponseEntity<ResponseObject> findBillsByClientId(
-            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "-1") int status,
             HttpServletRequest request,
@@ -50,7 +67,7 @@ public class BillController {
         if(!authService.checkClientHasRoleAccessResource(request, clientId))
             throw new AppError("Unauthorized!", 401);
 
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page - 1, size);
         Page<BillDTO> bills = waterService.findBillsByClientIdAndStatus(clientId, status, pageable);
         return ResponseEntity.status(200).body(new ResponseObject(
                 "Ok!", "Success!", bills

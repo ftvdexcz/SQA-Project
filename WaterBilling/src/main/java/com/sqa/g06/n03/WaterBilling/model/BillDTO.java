@@ -35,7 +35,7 @@ public class BillDTO {
         this.meterConsum = bill.getMeterConsum();
         this.clientId = bill.getClient().getId();
         this.paymentDate = Utils.dateToString(paymentDate);
-        this.totalAmount = this.tax + this.environment + this.amount;
+        this.totalAmount = Utils.roundDouble(this.tax + this.environment + this.amount);
     }
 
     public boolean getStatus() {

@@ -17,4 +17,13 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
     @Query(value = "SELECT new com.sqa.g06.n03.WaterBilling.model.BillDTO(b, p.paymentDate)" +
             " FROM Bill b LEFT JOIN Payment p ON b.id = p.bill.id WHERE b.client.id = :client_id AND b.status = :status")
     Page<BillDTO> findBillsByClientIdAndStatus(@Param("client_id") String clientId, boolean status, Pageable pageable);
+
+    // tim bang status
+    @Query(value = "SELECT new com.sqa.g06.n03.WaterBilling.model.BillDTO(b, p.paymentDate)" +
+            " FROM Bill b LEFT JOIN Payment p ON b.id = p.bill.id WHERE  b.status = :status")
+    Page<BillDTO> findBillsByStatus(boolean status, Pageable pageable);
+
+    @Query(value = "SELECT new com.sqa.g06.n03.WaterBilling.model.BillDTO(b, p.paymentDate)" +
+            " FROM Bill b LEFT JOIN Payment p ON b.id = p.bill.id")
+    Page<BillDTO> findBills(Pageable pageable);
 }

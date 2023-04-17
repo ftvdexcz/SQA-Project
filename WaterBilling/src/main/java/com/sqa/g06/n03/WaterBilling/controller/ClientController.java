@@ -23,16 +23,16 @@ public class ClientController {
     AuthService authService;
 
     @GetMapping("")
-    @CrossOrigin
+//    @CrossOrigin
     public ResponseEntity<ResponseObject> getAllUserPagination(
-            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "") String name,
             HttpServletRequest request
     ){
         if(!authService.checkRole(request, "ROLE_ADMIN")) throw new AppError("Unauthorized!", 401);
 
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page - 1, size);
         Page<ClientDTO> clients = clientService.findClients(name, pageable);
 
         return ResponseEntity.status(200).body(new ResponseObject(

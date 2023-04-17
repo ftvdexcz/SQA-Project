@@ -8,6 +8,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 
 import java.util.Date;
@@ -16,7 +18,10 @@ import java.util.Map;
 
 @Component
 public class JwtTokenProvider {
+    @Value("${app.jwtSecret}")
+    private String MY_SECRET_KEY;
     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+
     @Value("${app.jwtExpirationInMs}")
     private int jwtExpirationInMs;
 
@@ -37,7 +42,7 @@ public class JwtTokenProvider {
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
-                .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
+                .signWith(new SecretKeySpec(MY_SECRET_KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName()), SignatureAlgorithm.HS256)
                 .compact();
         map.put("token", token);
         return map;
@@ -46,7 +51,7 @@ public class JwtTokenProvider {
     public String validateToken(String token) {
         try{
             Jws<Claims> claimsJws = Jwts.parserBuilder()
-                    .setSigningKey(SECRET_KEY)
+                    .setSigningKey(new SecretKeySpec(MY_SECRET_KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName()))
                     .build()
                     .parseClaimsJws(token);
 

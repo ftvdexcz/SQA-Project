@@ -10,4 +10,7 @@ public interface WaterService {
 
     public BillDTO createBill(CreateBillDTO billDTO);
     Page<BillDTO> findBillsByClientIdAndStatus(String clientId, int status, Pageable pageable);
+
+    Page<BillDTO> findAllBillsByStatus(int status, Pageable pageable);
+
 }

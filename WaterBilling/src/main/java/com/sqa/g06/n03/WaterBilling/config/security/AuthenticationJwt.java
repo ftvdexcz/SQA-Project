@@ -23,7 +23,7 @@ public class AuthenticationJwt {
         if(token != null && token.startsWith("Bearer")){
             token = token.split(" ")[1];
         }
-        System.out.println(token);
+//        System.out.println(token);
         return token;
     }
 }

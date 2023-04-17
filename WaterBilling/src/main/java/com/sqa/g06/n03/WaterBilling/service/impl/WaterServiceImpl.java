@@ -1,6 +1,7 @@
 package com.sqa.g06.n03.WaterBilling.service.impl;
 
 import com.sqa.g06.n03.WaterBilling.config.Config;
+import com.sqa.g06.n03.WaterBilling.config.Utils;
 import com.sqa.g06.n03.WaterBilling.entity.Bill;
 import com.sqa.g06.n03.WaterBilling.entity.Client;
 import com.sqa.g06.n03.WaterBilling.handler.AppError;
@@ -11,6 +12,7 @@ import com.sqa.g06.n03.WaterBilling.repository.ClientRepository;
 import com.sqa.g06.n03.WaterBilling.repository.ConfigRepository;
 import com.sqa.g06.n03.WaterBilling.service.ClientService;
 import com.sqa.g06.n03.WaterBilling.service.WaterService;
+import jdk.jshell.execution.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -78,6 +80,19 @@ public class WaterServiceImpl implements WaterService {
         throw new AppError("Bad Request!", 400);
     }
 
+    @Override
+    public Page<BillDTO> findAllBillsByStatus(int status, Pageable pageable) {
+        if(status == -1){
+            return billRepository.findBills(pageable);
+        }else if(status == 0){
+            return billRepository.findBillsByStatus(false, pageable);
+        }else if(status == 1){
+            return billRepository.findBillsByStatus(true, pageable);
+        }
+
+        throw new AppError("Bad Request!", 400);
+    }
+
     private double calcAmount(int meterConsume) {
         double s = 0;
         Optional<Config> c = config.findById(1);
@@ -107,14 +122,14 @@ public class WaterServiceImpl implements WaterService {
 
 
     private double calcTax(double amount, int taxRate) {
-        return Math.round(amount * ((double) taxRate / 100) * 1000.0) / 1000.0;
+        return Utils.roundDouble(amount * ((double) taxRate / 100));
     }
 
     private double calcEnvironmentFee(double amount, int environmentRate) {
-        return Math.round(amount * ((double) environmentRate / 100) * 1000.0)/1000.0;
+        return Utils.roundDouble(amount * ((double) environmentRate / 100));
     }
 
     private double totalAmount(double amount, double taxFee, double environmentFee){
-        return Math.round((amount + taxFee + environmentFee) * 1000.0) / 1000.0;
+        return Utils.roundDouble(amount + taxFee + environmentFee);
     }
 }

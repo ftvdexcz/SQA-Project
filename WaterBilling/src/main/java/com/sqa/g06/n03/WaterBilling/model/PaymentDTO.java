@@ -2,9 +2,11 @@ package com.sqa.g06.n03.WaterBilling.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class PaymentDTO {
+public class PaymentDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     @JsonProperty("client_id")
     private String clientId;
 

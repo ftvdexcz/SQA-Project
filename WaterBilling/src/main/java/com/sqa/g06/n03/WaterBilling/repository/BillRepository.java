@@ -26,4 +26,7 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
     @Query(value = "SELECT new com.sqa.g06.n03.WaterBilling.model.BillDTO(b, p.paymentDate)" +
             " FROM Bill b LEFT JOIN Payment p ON b.id = p.bill.id order by b.year desc, b.month desc")
     Page<BillDTO> findBills(Pageable pageable);
-}
+
+    @Query("SELECT b FROM Bill b WHERE b.month = :month AND b.year = :year AND b.client.id = :client_id")
+    Bill findOneBill(@Param("month") int month, @Param("year") int year,  @Param("client_id") String client_id)
+;}

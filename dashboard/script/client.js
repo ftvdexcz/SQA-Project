@@ -46,7 +46,9 @@ document.querySelector('#payment').addEventListener('click', async () => {
 
     const resData = await response.json();
 
-    window.location.href = resData.data;
+    window.open(resData.data, '_blank');
+
+    // document.querySelector('#close').click();
 
     console.log(resData);
   } catch (err) {

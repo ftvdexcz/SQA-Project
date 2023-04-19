@@ -4,12 +4,14 @@ import com.sqa.g06.n03.WaterBilling.config.Config;
 import com.sqa.g06.n03.WaterBilling.config.Utils;
 import com.sqa.g06.n03.WaterBilling.entity.Bill;
 import com.sqa.g06.n03.WaterBilling.entity.Client;
+import com.sqa.g06.n03.WaterBilling.entity.Payment;
 import com.sqa.g06.n03.WaterBilling.handler.AppError;
 import com.sqa.g06.n03.WaterBilling.model.BillDTO;
 import com.sqa.g06.n03.WaterBilling.model.CreateBillDTO;
 import com.sqa.g06.n03.WaterBilling.repository.BillRepository;
 import com.sqa.g06.n03.WaterBilling.repository.ClientRepository;
 import com.sqa.g06.n03.WaterBilling.repository.ConfigRepository;
+import com.sqa.g06.n03.WaterBilling.repository.PaymentRepository;
 import com.sqa.g06.n03.WaterBilling.service.ClientService;
 import com.sqa.g06.n03.WaterBilling.service.WaterService;
 import jdk.jshell.execution.Util;
@@ -34,6 +36,9 @@ public class WaterServiceImpl implements WaterService {
 
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     @Override
     @Transactional
@@ -91,6 +96,28 @@ public class WaterServiceImpl implements WaterService {
         }
 
         throw new AppError("Bad Request!", 400);
+    }
+
+    @Override
+    public Bill findOneBill(int month, int year, String client_id){
+        Bill bill = billRepository.findOneBill(month, year, client_id);
+        if(bill != null)
+            return bill;
+        throw new AppError("Bill not found", 404);
+    }
+
+    @Override
+    @Transactional
+    public Bill save(
+            Bill b
+    ){
+        return billRepository.save(b);
+    }
+
+    @Override
+    @Transactional
+    public Payment save(Payment p){
+        return paymentRepository.save(p);
     }
 
     private double calcAmount(int meterConsume) {

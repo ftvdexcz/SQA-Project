@@ -1,5 +1,6 @@
 package com.sqa.g06.n03.WaterBilling.controller;
 
+import com.sqa.g06.n03.WaterBilling.entity.Client;
 import com.sqa.g06.n03.WaterBilling.handler.AppError;
 import com.sqa.g06.n03.WaterBilling.handler.ResponseObject;
 import com.sqa.g06.n03.WaterBilling.model.ClientDTO;
@@ -38,5 +39,13 @@ public class ClientController {
         return ResponseEntity.status(200).body(new ResponseObject(
                 "Ok!", "Success!", clients
         ));
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<Client> getIdByUsername(@PathVariable String username){
+        Client client = clientService.findClientByUsername(username);
+        if(client == null)
+            return ResponseEntity.status(404).body(null);
+        return ResponseEntity.status(200).body(client);
     }
 }

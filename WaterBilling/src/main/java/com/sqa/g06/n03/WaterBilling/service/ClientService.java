@@ -17,4 +17,6 @@ public interface ClientService {
     Client findById(String id);
 
     Client findClientByUser(User user);
+
+    Client findClientByUsername(String username);
 }

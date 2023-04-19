@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sqa.g06.n03.WaterBilling.config.paypal.PaypalPaymentIntent;
 import com.sqa.g06.n03.WaterBilling.config.paypal.PaypalPaymentMethod;
+import com.sqa.g06.n03.WaterBilling.model.PaymentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.paypal.api.payments.Amount;
@@ -26,13 +27,15 @@ public class PaypalService {
             PaypalPaymentIntent intent,
             String description,
             String cancelUrl,
-            String successUrl) throws PayPalRESTException{
+            String successUrl,
+            PaymentDTO paymentDTO) throws PayPalRESTException{
         Amount amount = new Amount();
         amount.setCurrency(currency);
         amount.setTotal(String.format("%.2f", total));
         Transaction transaction = new Transaction();
         transaction.setDescription(description);
         transaction.setAmount(amount);
+        transaction.setCustom("abc");
         List<Transaction> transactions = new ArrayList<>();
         transactions.add(transaction);
         Payer payer = new Payer();
@@ -46,6 +49,7 @@ public class PaypalService {
         redirectUrls.setReturnUrl(successUrl);
         payment.setRedirectUrls(redirectUrls);
         apiContext.setMaskRequestId(true);
+
         return payment.create(apiContext);
     }
     public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException{
@@ -53,6 +57,7 @@ public class PaypalService {
         payment.setId(paymentId);
         PaymentExecution paymentExecute = new PaymentExecution();
         paymentExecute.setPayerId(payerId);
+
         return payment.execute(apiContext, paymentExecute);
     }
 }

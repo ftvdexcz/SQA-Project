@@ -2,8 +2,10 @@ package com.sqa.g06.n03.WaterBilling.controller;
 
 import com.sqa.g06.n03.WaterBilling.entity.Admin;
 import com.sqa.g06.n03.WaterBilling.entity.Client;
+import com.sqa.g06.n03.WaterBilling.entity.User;
 import com.sqa.g06.n03.WaterBilling.handler.AppError;
 import com.sqa.g06.n03.WaterBilling.handler.ResponseObject;
+import com.sqa.g06.n03.WaterBilling.model.ClientDTO;
 import com.sqa.g06.n03.WaterBilling.model.UserDTO;
 import com.sqa.g06.n03.WaterBilling.service.AuthService;
 import com.sqa.g06.n03.WaterBilling.service.UserService;
@@ -56,5 +58,14 @@ public class UserController {
         ));
     }
 
+    @PostMapping("/verify_token")
+    public ResponseEntity<ResponseObject> verifyToken(HttpServletRequest request){
+        User user = authService.verifyToken(request);
+
+        System.out.println("token valid");
+        return ResponseEntity.status(200).body(new ResponseObject(
+                "Ok!", "Success!", user
+        ));
+    }
 
 }

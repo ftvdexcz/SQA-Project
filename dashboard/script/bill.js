@@ -1,7 +1,6 @@
 'use stricts';
 
-const token =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY4MTc0NDM3NiwiZXhwIjoxNjgyMzQ5MTc2fQ.vlgZA9ciX20aJ2mfN7Tqq82b6TLI-IRvwCmsTfXV0kY';
+const token = localStorage.getItem('token');
 
 const tbody = document.querySelector('tbody');
 const dataContainer = $('#data-container');
@@ -62,11 +61,14 @@ const fetchBills = async (page = 1, size = 10) => {
           jqXHR.status == 0
         ) {
           return false; // do nothing
-        } else if (jqXHR && jqXHR.status === 403) {
+        } else if (
+          (jqXHR && jqXHR.status === 403) ||
+          (jqXHR && jqXHR.status === 401)
+        ) {
           window.location.href =
-            window.location.href.split('/').slice(0, 3).join('/') + '/login';
+            'http://127.0.0.1:5500/dashboard/forbidden.html';
         } else {
-          alert('error');
+          window.location.href = 'http://127.0.0.1:5500/dashboard/error.html';
         }
       },
     },

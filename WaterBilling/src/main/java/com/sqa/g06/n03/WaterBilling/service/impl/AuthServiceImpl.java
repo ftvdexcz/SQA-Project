@@ -5,6 +5,7 @@ import com.sqa.g06.n03.WaterBilling.config.security.JwtTokenProvider;
 import com.sqa.g06.n03.WaterBilling.entity.Client;
 import com.sqa.g06.n03.WaterBilling.entity.User;
 import com.sqa.g06.n03.WaterBilling.handler.AppError;
+import com.sqa.g06.n03.WaterBilling.model.ClientDTO;
 import com.sqa.g06.n03.WaterBilling.service.AuthService;
 import com.sqa.g06.n03.WaterBilling.service.ClientService;
 import com.sqa.g06.n03.WaterBilling.service.UserService;
@@ -65,5 +66,13 @@ public class AuthServiceImpl implements AuthService {
             return client.getId().equalsIgnoreCase(resourceId);
         }
         return false;
+    }
+
+    public User verifyToken(HttpServletRequest request){
+        String username = authenticate(request);
+        if(username == null){
+            throw new AppError("Invalid token!", 403);
+        }
+        return userService.findByUsername(username);
     }
 }

@@ -1,5 +1,7 @@
 package com.sqa.g06.n03.WaterBilling.service;
 
+import com.sqa.g06.n03.WaterBilling.entity.User;
+import com.sqa.g06.n03.WaterBilling.model.ClientDTO;
 import jakarta.servlet.http.HttpServletRequest;
 
 public interface AuthService {
@@ -8,4 +10,6 @@ public interface AuthService {
     public boolean checkRole(HttpServletRequest request, String role);
 
     public boolean checkClientHasRoleAccessResource(HttpServletRequest request, String resourceId);
+
+    public User verifyToken(HttpServletRequest request);
 }

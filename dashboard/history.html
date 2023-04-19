@@ -14,70 +14,71 @@
     crossorigin="anonymous"></script>
   <script src="http://pagination.js.org/dist/2.6.0/pagination.min.js"></script>
   <link rel="stylesheet" href="css/pagination.css">
-  <title>Dashboard</title>
+
+  <title>Khách hàng</title>
 
   <style>
     td {
       padding: 8px 0px !important;
     }
   </style>
-
 </head>
 
 <body>
   <div class="wrapper">
     <div class="header">
       <div class="logo">
-        <div class="brandName">Dashboard</div>
+        <div class="brandName">Khách hàng</div>
       </div>
       <div class="action">
         <div class="items">
           <div class="item">
-            <a href="dashboard-bill.html">
+            <a href="client.html">
               <i class="pi pi-home"></i>
-              Hóa đơn tiền nước
+              Đóng tiền nước
             </a>
           </div>
           <div class="item">
-            <a href="dashboard-client.html">
+            <a href="history.html">
               <i class="pi pi-home"></i>
-              Khách hàng
+              Lịch sử đóng tiền
             </a>
           </div>
-
         </div>
       </div>
     </div>
     <div class="content">
       <div class="content-top">
-        <p>Administator, LongDQ</p>
-        <img alt="" src="" />
+        <p style="margin: 0px !important" id="clientInfo"></p>
+
       </div>
       <div class="content-bottom" style="padding-bottom: 0px !important">
         <div class="add">
-          <h3>Khách hàng</h3>
+          <h3>Đóng tiền nước</h3>
         </div>
         <div class="table">
-          <div class="table-header">Khách hàng</div>
+          <div class="table-header">Hóa đơn cần thanh toán</div>
           <div class="table-content">
 
             <table id="table" class="table table-fluid table-bordered" style="width:100%; text-align: center;">
               <thead>
                 <tr>
-                  <th style="max-width: 30px;">STT</th>
-                  <th>Mã KH</th>
-                  <th>Tên khách hàng</th>
-                  <th style="width: 200px;">Số điện thoại</th>
-                  <th style="min-width: 30px;">Email</th>
-                  <th style="min-width: 60px;">Địa chỉ</th>
-                  <th style="width: 150px;">Tùy chọn</th>
+                  <th style="width: 32px;">STT</th>
+
+                  <th style="width: 120px;">Kì</th>
+                  <th style="width: 120px;">Năm</th>
+                  <th style="width: 200px;">Số nước tiêu thụ (mét khối)</th>
+                  <th class="price">Thành tiền (Vnd)</th>
+                  <th class="price">Thuế GTGT (Vnd)</th>
+                  <th class="price">Phí BVMT (Vnd)</th>
+                  <th class="price">Tổng (Vnd)</th>
+                  <th style="width: 120px;">Ngày trả</th>
                 </tr>
               </thead>
               <tbody id="data-container">
 
               </tbody>
             </table>
-
             <div id="loading"></div>
             <nav id="pagination-container"
               style="display: flex; justify-content: end; margin-top: 32px; margin-bottom: 16px">
@@ -89,45 +90,7 @@
   </div>
 
 
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Thêm hóa đơn</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="clientId">Mã Khách Hàng</label>
-              <input type="text" readonly class="form-control" id="clientId">
-            </div>
-            <div class="form-group">
-              <label for="monthYear">Kì</label>
-              <input type="month" class="form-control" id="monthYear">
-              <p id="monthYear-error" style="display: none; margin-top: 4px; color: red">Vui lòng nhập kì</p>
-            </div>
-
-            <div class="form-group">
-              <label for="meterConsum">Số nước tiêu thụ</label>
-              <input min="1" step="1" type="number" class="form-control" id="meterConsum" required>
-              <p id="meter-error" style="display: none; margin-top: 4px; color: red">Vui lòng nhập số nước</p>
-            </div>
-
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Đóng</button>
-          <button type="button" class="btn btn-primary" id="createBill">Thêm</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="script/dashboard-client.js"></script>
+  <script src="script/history.js"></script>
   </script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

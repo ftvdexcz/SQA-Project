@@ -17,5 +17,7 @@ public interface ClientRepository extends JpaRepository<Client, String> {
 
     Client findClientByUser(User user);
 
+    @Query("SELECT c FROM Client c WHERE c.user.username = :username")
+    Client findClientByUsername(@Param("username") String username);
 //    Page<Client> findAll(Pageable pageable);
 }

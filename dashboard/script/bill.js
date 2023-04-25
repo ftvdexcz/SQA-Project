@@ -63,7 +63,7 @@ const fetchBills = async (page = 1, size = 10) => {
       const role = jsonObj.data.role.name;
       console.log(role);
 
-      document.querySelector('#adminInfo').textContent = `Administrator, ${
+      document.querySelector('#adminInfo').textContent = `Xin chào, ${
         jsonObj.data.lastname + ' ' + jsonObj.data.firstname
       }`;
     } catch (err) {

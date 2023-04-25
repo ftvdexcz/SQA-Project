@@ -39,12 +39,19 @@ const signinBtn = document.querySelector('#signin-btn');
 const usernameInput = document.querySelector('#username');
 const passwordInput = document.querySelector('#password');
 const loginMessage = document.querySelector('#login-message');
+const log_err = document.querySelector('#log-err');
 
 signinBtn.addEventListener('click', async (e) => {
   try {
+    e.preventDefault();
     loginMessage.style.display = 'none';
 
-    e.preventDefault();
+    username = usernameInput.value.trim();
+    password = passwordInput.value;
+
+    if (username == '') throw new Error('Tên tài khoản không được để trống');
+
+    if (password == '') throw new Error('Mật khẩu không được để trống');
 
     const response = await fetch('http://127.0.0.1:8080/api/v1/signin', {
       method: 'POST',
@@ -52,8 +59,8 @@ signinBtn.addEventListener('click', async (e) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: usernameInput.value,
-        password: passwordInput.value,
+        username,
+        password,
       }),
     });
 
@@ -80,5 +87,6 @@ signinBtn.addEventListener('click', async (e) => {
     }
   } catch (err) {
     loginMessage.style.display = 'block';
+    log_err.textContent = err.message;
   }
 });

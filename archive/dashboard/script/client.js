@@ -87,10 +87,10 @@ const template = (data, clientId, username, name) => {
     <td>${item.month}</td>
     <td>${item.year}</td>
     <td>${item.meter_consum}</td>
-    <td>${item.amount.toFixed(3)}</td>
-    <td>${item.tax.toFixed(3)}</td>
-    <td>${item.environment.toFixed(3)}</td>
-    <td>${item.total_amount.toFixed(3)}</td>
+    <td>${item.amount}</td>
+    <td>${item.tax}</td>
+    <td>${item.environment}</td>
+    <td>${item.total_amount}</td>
     <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="padding: 4px 6px !important" onclick=${'"'} cb('${
       clientId +
       ' ' +
@@ -102,13 +102,13 @@ const template = (data, clientId, username, name) => {
       ' ' +
       item.meter_consum +
       ' ' +
-      item.amount.toFixed(3) +
+      item.amount +
       ' ' +
-      item.tax.toFixed(3) +
+      item.tax +
       ' ' +
-      item.environment.toFixed(3) +
+      item.environment +
       ' ' +
-      item.total_amount.toFixed(3)
+      item.total_amount
     }', '${name}') ${'"'}>
         ${iconPlus}
         </button></td>

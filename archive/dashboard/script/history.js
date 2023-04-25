@@ -17,10 +17,10 @@ const template = (data) => {
     <td>${item.month}</td>
     <td>${item.year}</td>
     <td>${item.meter_consum}</td>
-    <td>${item.amount.toFixed(3)}</td>
-    <td>${item.tax.toFixed(3)}</td>
-    <td>${item.environment.toFixed(3)}</td>
-    <td>${item.total_amount.toFixed(3)}</td>
+    <td>${item.amount}</td>
+    <td>${item.tax}</td>
+    <td>${item.environment}</td>
+    <td>${item.total_amount}</td>
     // fake 
     <td>${item.payment_date || new Date().toISOString().slice(0, 10)}</td>
     </tr>

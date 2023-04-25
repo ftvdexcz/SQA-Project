@@ -36,6 +36,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client findClientByUser(User user){
+        // không test vì chức năng được gọi trong AuthService, test trong AuthService
         Client client = clientRepository.findClientByUser(user);
 
         if(client == null)
@@ -46,7 +47,11 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client findClientByUsername(String username){
+        Client client = clientRepository.findClientByUsername(username);
 
-        return clientRepository.findClientByUsername(username);
+        if(client == null)
+            throw new AppError("Client not found!", 404);
+
+        return client;
     }
 }

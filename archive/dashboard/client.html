@@ -21,44 +21,6 @@
     td {
       padding: 8px 0px !important;
     }
-
-    .table td {
-      padding-right: 0.75rem !important;
-    }
-
-    #table td:nth-child(1) {
-      text-align: center;
-      padding: 0px !important;
-    }
-
-
-    #table td:nth-child(2) {
-      text-align: right;
-    }
-
-    #table td:nth-child(3) {
-      text-align: right;
-    }
-
-    #table td:nth-child(4) {
-      text-align: right;
-    }
-
-    #table td:nth-child(5) {
-      text-align: right;
-    }
-
-    #table td:nth-child(6) {
-      text-align: right;
-    }
-
-    #table td:nth-child(7) {
-      text-align: right;
-    }
-
-    #table td:nth-child(8) {
-      text-align: right;
-    }
   </style>
 </head>
 
@@ -88,19 +50,14 @@
     <div class="content">
       <div class="content-top">
         <p style="margin: 0px !important" id="clientInfo"></p>
-        <button id="logout-btn" style="padding: 4px;
-        border-radius: 4px;
-        background-color: #00B4D8;
-        color: #fff;
-        border: 1px solid #555;
-        margin-left: 10px;">Đăng xuất</button>
+
       </div>
       <div class="content-bottom" style="padding-bottom: 0px !important">
         <div class="add">
-          <h3>Lịch sử đóng tiền</h3>
+          <h3>Đóng tiền nước</h3>
         </div>
         <div class="table">
-          <div class="table-header">Hóa đơn đã thanh toán</div>
+          <div class="table-header">Hóa đơn cần thanh toán</div>
           <div class="table-content">
 
             <table id="table" class="table table-fluid table-bordered" style="width:100%; text-align: center;">
@@ -115,7 +72,8 @@
                   <th class="price">Thuế GTGT (Vnd)</th>
                   <th class="price">Phí BVMT (Vnd)</th>
                   <th class="price">Tổng (Vnd)</th>
-                  <th style="width: 120px;">Ngày trả</th>
+
+                  <th style="width: 120px;">Tùy chọn</th>
                 </tr>
               </thead>
               <tbody id="data-container">
@@ -133,9 +91,68 @@
   </div>
 
 
-  <script src="script/history.js"></script>
-  <script src="script/logout.js"></script>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Thanh toán hóa đơn</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="clientId">Mã Khách Hàng</label>
+              <input type="text" readonly class="form-control" id="clientId" name="clientId">
+            </div>
+            <div class="form-group">
+              <label for="clientName">Tên Khách Hàng</label>
+              <input type="text" readonly class="form-control" id="clientName">
+              <input type="text" style="display: none" readonly class="form-control" id="username">
+            </div>
+            <div class="form-group">
+              <label for="monthYear">Kì</label>
+              <input type="text" class="form-control" id="month" readonly style="display: none">
+              <input type="text" class="form-control" id="year" readonly style="display: none">
+              <input type="month" class="form-control" id="monthYear" readonly>
+            </div>
+            <div class="form-group">
+              <label for="meterConsum">Số nước tiêu thụ</label>
+              <input readonly value="12" type="number" class="form-control" id="meterConsum">
+            </div>
+            <div class="form-group">
+              <label for="amount">Thành tiền (vnđ)</label>
+              <input readonly value="12" type="number" class="form-control" id="amount">
+            </div>
+            <div class="form-group">
+              <label for="tax">Thuế GTGT (vnđ)</label>
+              <input readonly value="12" type="number" class="form-control" id="tax">
+            </div>
+            <div class="form-group">
+              <label for="environmentFee">Phí BVMT (vnđ)</label>
+              <input readonly value="12" type="number" class="form-control" id="environmentFee">
+            </div>
 
+            <div class="form-group" style="text-align: end;">
+              <input type="text" id="_totalAmount" style="display: none">
+              <h4 id="totalAmount"></h4>
+
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Đóng</button>
+          <button type="button" class="btn btn-primary" id="payment">Thanh toán hóa đơn</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script/client.js"></script>
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>

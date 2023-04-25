@@ -68,4 +68,13 @@ public class UserController {
         ));
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<ResponseObject> logout(HttpServletRequest request){
+        String newToken = authService.logout(request);
+
+        return ResponseEntity.status(200).body(new ResponseObject(
+                "Ok!", "Logout!", newToken
+        ));
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.sqa.g06.n03.WaterBilling.config.security;
 
 import com.sqa.g06.n03.WaterBilling.entity.User;
+import com.sqa.g06.n03.WaterBilling.handler.AppError;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -61,5 +62,33 @@ public class JwtTokenProvider {
             System.out.println("Error when decode");
             return null;
         }
+    }
+
+    public String deleteToken(String token){
+        try{
+            Jws<Claims> claimsJws = Jwts.parserBuilder()
+                    .setSigningKey(new SecretKeySpec(MY_SECRET_KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName()))
+                    .build().parseClaimsJws(token);
+            Claims claims = claimsJws.getBody();
+            String username = claims.getSubject();
+            System.out.println(username);
+            Date expirationDate = claims.getExpiration();
+            System.out.println(expirationDate);
+            // sign new key, set expiration by add 2s to the current time
+            Date newExpirationDate = new Date(System.currentTimeMillis() + 2000);
+            System.out.println(newExpirationDate);
+            // Create a new token with the same claims and new expiration date
+            String newToken = Jwts.builder()
+                    .setSubject(username)
+                    .setIssuedAt(new Date())
+                    .setExpiration(newExpirationDate)
+                    .signWith(new SecretKeySpec(MY_SECRET_KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName()), SignatureAlgorithm.HS256)
+                    .compact();
+
+            return newToken;
+        }catch(Exception e){
+            throw new AppError("Unauthorized", 401);
+        }
+
     }
 }

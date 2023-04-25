@@ -13,55 +13,15 @@
   <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
     crossorigin="anonymous"></script>
   <script src="http://pagination.js.org/dist/2.6.0/pagination.min.js"></script>
-
   <link rel="stylesheet" href="css/pagination.css">
   <title>Dashboard</title>
 
   <style>
-    .price {
-      width: 170px;
-    }
-
-    #table td:nth-child(1) {
-      text-align: center;
-    }
-
-    #table td:nth-child(2) {
-      text-align: left;
-    }
-
-    #table td:nth-child(3) {
-      text-align: right;
-    }
-
-    #table td:nth-child(4) {
-      text-align: right;
-    }
-
-    #table td:nth-child(5) {
-      text-align: right;
-    }
-
-    #table td:nth-child(6) {
-      text-align: right;
-    }
-
-    #table td:nth-child(7) {
-      text-align: right;
-    }
-
-    #table td:nth-child(8) {
-      text-align: right;
-    }
-
-    #table td:nth-child(9) {
-      text-align: right;
-    }
-
-    #table td:nth-child(10) {
-      text-align: left;
+    td {
+      padding: 8px 0px !important;
     }
   </style>
+
 </head>
 
 <body>
@@ -84,54 +44,40 @@
               Khách hàng
             </a>
           </div>
-          <div class="item">
-            <a href="signup.html">
-              <i class="pi pi-home"></i>
-              Tạo tài khoản
-            </a>
-          </div>
 
         </div>
       </div>
     </div>
     <div class="content">
       <div class="content-top">
-        <p style="margin-bottom: 0 !important;" id="adminInfo"></p>
-        <button id="logout-btn" style="padding: 4px;
-        border-radius: 4px;
-        background-color: #00B4D8;
-        color: #fff;
-        border: 1px solid #555;
-        margin-left: 10px;">Đăng xuất</button>
+        <p>Administator, LongDQ</p>
+        <img alt="" src="" />
       </div>
-      <div class="content-bottom">
+      <div class="content-bottom" style="padding-bottom: 0px !important">
         <div class="add">
-          <h3>Hóa đơn tiền nước</h3>
+          <h3>Khách hàng</h3>
         </div>
         <div class="table">
-          <div class="table-header">Hóa đơn tiền nước</div>
+          <div class="table-header">Khách hàng</div>
           <div class="table-content">
 
             <table id="table" class="table table-fluid table-bordered" style="width:100%; text-align: center;">
               <thead>
                 <tr>
-                  <th style="width: 32px;">STT</th>
-                  <th style="width: 200px;">Mã KH</th>
-                  <th style="width: 200px;">Số nước tiêu thụ (m3)</th>
-                  <th style="width: 30px;">Kì</th>
-                  <th style="width: 60px;">Năm</th>
-                  <th class="price">Thành tiền (Vnd)</th>
-                  <th class="price">Thuế GTGT (Vnd)</th>
-                  <th class="price">Phí BVMT (Vnd)</th>
-                  <th class="price">Tổng (Vnd)</th>
-                  <th style="width: 160px">Ngày trả</th>
-                  <th style="width: 120px;">Trạng thái</th>
+                  <th style="max-width: 30px;">STT</th>
+                  <th>Mã KH</th>
+                  <th>Tên khách hàng</th>
+                  <th style="width: 200px;">Số điện thoại</th>
+                  <th style="min-width: 30px;">Email</th>
+                  <th style="min-width: 60px;">Địa chỉ</th>
+                  <th style="width: 150px;">Tùy chọn</th>
                 </tr>
               </thead>
               <tbody id="data-container">
 
               </tbody>
             </table>
+
             <div id="loading"></div>
             <nav id="pagination-container"
               style="display: flex; justify-content: end; margin-top: 32px; margin-bottom: 16px">
@@ -143,13 +89,46 @@
   </div>
 
 
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Thêm hóa đơn</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="clientId">Mã Khách Hàng</label>
+              <input type="text" readonly class="form-control" id="clientId">
+            </div>
+            <div class="form-group">
+              <label for="monthYear">Kì</label>
+              <input type="month" class="form-control" id="monthYear">
+              <p id="monthYear-error" style="display: none; margin-top: 4px; color: red">Vui lòng nhập kì</p>
+            </div>
 
+            <div class="form-group">
+              <label for="meterConsum">Số nước tiêu thụ</label>
+              <input min="1" step="1" type="number" class="form-control" id="meterConsum" required>
+              <p id="meter-error" style="display: none; margin-top: 4px; color: red">Vui lòng nhập số nước</p>
+            </div>
 
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Đóng</button>
+          <button type="button" class="btn btn-primary" id="createBill">Thêm</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <script src="script/bill.js">
+  <script src="script/dashboard-client.js"></script>
   </script>
-  <script src="script/logout.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
@@ -159,6 +138,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
     integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
     crossorigin="anonymous"></script>
+
 
 </body>
 

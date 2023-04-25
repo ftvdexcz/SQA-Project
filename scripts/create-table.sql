@@ -81,4 +81,4 @@ create table payment(
                         CONSTRAINT PK_payment PRIMARY KEY (id)
 );
 
-insert into payment(payment_date, total_amount, bill_id) values('2023-04-16', 53.757, 7);
+-- insert into payment(payment_date, total_amount, bill_id) values('2023-04-16', 53.757, 7);

@@ -12,4 +12,6 @@ public interface AuthService {
     public boolean checkClientHasRoleAccessResource(HttpServletRequest request, String resourceId);
 
     public User verifyToken(HttpServletRequest request);
+
+    public String logout(HttpServletRequest request);
 }

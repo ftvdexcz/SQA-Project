@@ -20,6 +20,24 @@
     td {
       padding: 8px 0px !important;
     }
+
+    #table td:last-child {
+      text-align: center;
+    }
+
+    #table td:nth-child(1) {
+      text-align: center;
+      padding-left: 0 !important;
+    }
+
+
+    td {
+      text-align: left;
+    }
+
+    .table td {
+      padding-left: 0.75rem !important;
+    }
   </style>
 
 </head>
@@ -44,14 +62,24 @@
               Khách hàng
             </a>
           </div>
-
+          <div class="item">
+            <a href="signup.html">
+              <i class="pi pi-home"></i>
+              Tạo tài khoản
+            </a>
+          </div>
         </div>
       </div>
     </div>
     <div class="content">
       <div class="content-top">
-        <p>Administator, LongDQ</p>
-        <img alt="" src="" />
+        <p style="margin-bottom: 0 !important;" id="adminInfo"></p>
+        <button id="logout-btn" style="padding: 4px;
+        border-radius: 4px;
+        background-color: #00B4D8;
+        color: #fff;
+        border: 1px solid #555;
+        margin-left: 10px;">Đăng xuất</button>
       </div>
       <div class="content-bottom" style="padding-bottom: 0px !important">
         <div class="add">
@@ -64,13 +92,13 @@
             <table id="table" class="table table-fluid table-bordered" style="width:100%; text-align: center;">
               <thead>
                 <tr>
-                  <th style="max-width: 30px;">STT</th>
+                  <th style="max-width: 32px;">STT</th>
                   <th>Mã KH</th>
                   <th>Tên khách hàng</th>
                   <th style="width: 200px;">Số điện thoại</th>
-                  <th style="min-width: 30px;">Email</th>
-                  <th style="min-width: 60px;">Địa chỉ</th>
-                  <th style="width: 150px;">Tùy chọn</th>
+                  <th style="width: 300px">Email</th>
+                  <th style="width: 300px">Địa chỉ</th>
+                  <th style="width: 120px">Tùy chọn</th>
                 </tr>
               </thead>
               <tbody id="data-container">
@@ -128,7 +156,9 @@
   </div>
 
   <script src="script/dashboard-client.js"></script>
-  </script>
+  <script src="script/logout.js"></script>
+
+
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
